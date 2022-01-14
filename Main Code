@@ -1,0 +1,40 @@
+
+CREATE FUNCTION udf_day_of_the_Week ()    
+    RETURNS @NAME_OF_DAY TABLE (CALENDAR VARCHAR(MAX))
+    AS
+    BEGIN
+    DECLARE @@NAME_OF_DAY AS VARCHAR(MAX)
+    DECLARE @YESTERDAY AS VARCHAR(MAX);
+    DECLARE @TODAY AS VARCHAR(MAX);
+    DECLARE @TOMORROW AS VARCHAR(MAX); 
+    DECLARE @Monday AS Varchar (MAX);
+    DECLARE @Tuesday AS Varchar (MAX);
+    DECLARE @Wednesday AS Varchar (MAX);
+    DECLARE @Thursday AS Varchar (MAX);
+    DECLARE @Friday AS Varchar (MAX);
+    DECLARE @Saturday AS Varchar (MAX);
+    DECLARE @Sunday  AS Varchar (MAX);
+
+    SET @TODAY = ('Today' + SPACE(1) + (CAST (DATENAME(WEEKDAY, GETDATE()) + SPACE(1) + (DATENAME(DAY, GETDATE())+ SPACE(1) + DATENAME(YEAR, GETDATE())) AS Varchar (MAX))))
+    SET @TOMORROW = ('Tomorrow' + SPACE(1) + (CAST (DATENAME(WEEKDAY, GETDATE()+1) + SPACE(1) + (DATENAME(DAY, GETDATE()+1)+ SPACE(1) + DATENAME(YEAR, GETDATE())) AS Varchar (MAX))))
+    SET @YESTERDAY = ('Yesterday' + SPACE(1) + (CAST (DATENAME(WEEKDAY, GETDATE()-1) + SPACE(1) + (DATENAME(DAY, GETDATE()-1)+ SPACE(1) + DATENAME(YEAR, GETDATE())) AS Varchar (MAX))))
+    set @Monday =  (CAST (DATENAME(WEEKDAY, GETDATE()) + SPACE(1) + (DATENAME(DAY, GETDATE())+ SPACE(1) + DATENAME(YEAR, GETDATE())) AS Varchar (MAX)))
+    set @Tuesday = (CAST (DATENAME(WEEKDAY, GETDATE()+1) + SPACE(1) + (DATENAME(DAY, GETDATE()+1) + SPACE(1) + DATENAME(YEAR, GETDATE())) AS Varchar (MAX)))
+    set @Wednesday = (CAST (DATENAME(WEEKDAY, GETDATE()+2) + SPACE(1) + (DATENAME(DAY, GETDATE()+2)+ SPACE(1) + DATENAME(YEAR, GETDATE())) AS Varchar (MAX)))
+    set @Thursday = (CAST (DATENAME(WEEKDAY, GETDATE()+3) + SPACE(1) + (DATENAME(DAY, GETDATE()+3)+ SPACE(1) + DATENAME(YEAR, GETDATE())) AS Varchar (MAX)))
+    set @Friday = (CAST (DATENAME(WEEKDAY, GETDATE()+4) + SPACE(1) + (DATENAME(DAY, GETDATE()+4)+ SPACE(1) + DATENAME(YEAR, GETDATE())) AS Varchar (MAX)))
+    set @Saturday = (CAST (DATENAME(WEEKDAY, GETDATE()+5) + SPACE(1) + (DATENAME(DAY, GETDATE()+5)+ SPACE(1) + DATENAME(YEAR, GETDATE())) AS Varchar (MAX)))
+    set @Sunday = (CAST (DATENAME(WEEKDAY, GETDATE()+6) + SPACE(1) + (DATENAME(DAY, GETDATE()+6)+ SPACE(1) + DATENAME(YEAR, GETDATE())) AS Varchar (MAX)))
+
+Insert into @NAME_OF_DAY(CALENDAR) values (@TODAY)
+Insert into @NAME_OF_DAY(CALENDAR) values  (@TOMORROW) 
+Insert into @NAME_OF_DAY(CALENDAR) values  (@YESTERDAY)
+Insert into @NAME_OF_DAY(CALENDAR) values  (@Monday) 
+Insert into @NAME_OF_DAY(CALENDAR) values  (@Tuesday)
+Insert into @NAME_OF_DAY(CALENDAR) values  (@Wednesday)
+Insert into @NAME_OF_DAY(CALENDAR) values  (@Thursday)
+Insert into @NAME_OF_DAY(CALENDAR) values  (@Friday)
+Insert into @NAME_OF_DAY(CALENDAR) values (@Saturday)
+Insert into @NAME_OF_DAY(CALENDAR) values  (@Sunday)
+RETURN
+END 
